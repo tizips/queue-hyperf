@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Amqp\Consumer;
 
 use App\Amqp\Producer\Site\Queue\FailProducer;
-use Exception;
 use Hyperf\Amqp\Message\ConsumerMessage;
 use Hyperf\Amqp\Producer;
 use Hyperf\Amqp\Result;
@@ -61,7 +60,7 @@ class AbstractConsumer extends ConsumerMessage
 
     }
 
-    protected function fail(mixed $data, Exception $exception)
+    protected function fail(mixed $data, Throwable $exception)
     {
 
     }

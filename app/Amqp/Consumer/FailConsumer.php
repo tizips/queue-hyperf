@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Amqp\Consumer\Site\Queue;
 
 use App\Amqp\Consumer\AbstractConsumer;
-use Exception;
 use Hyperf\Amqp\Annotation\Consumer;
 use Hyperf\Logger\LoggerFactory;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 #[Consumer(exchange: 'hyperf', routingKey: 'hyperf.queue.fail', queue: 'hyperf.queue.fail')]
 class FailConsumer extends AbstractConsumer
@@ -24,7 +24,6 @@ class FailConsumer extends AbstractConsumer
      * @param mixed $data
      * @param int   $retries
      * @return void
-     * @throws Exception
      */
     protected function handler(mixed $data, int $retries)
     {
@@ -42,12 +41,12 @@ class FailConsumer extends AbstractConsumer
 
     /**
      * @param mixed     $data
-     * @param Exception $exception
+     * @param Throwable $exception
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    protected function fail(mixed $data, Exception $exception)
+    protected function fail(mixed $data, Throwable $exception)
     {
         $logger = $this->container->get(LoggerFactory::class)->get('queue', 'queue');
 
